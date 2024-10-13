@@ -13,7 +13,10 @@ public partial class RecipeDetailsPage : ContentPage
         RecipeTitle.Text = recipe.Title ?? "No title available";
         RecipeCategory.Text = recipe.Category ?? "No category";
         RecipeArea.Text = recipe.Area ?? "No area";
-
+        RecipeDescription.Text = recipe.Description ?? "No description available";
+        RecipeTags.Text = !string.IsNullOrEmpty(recipe.Tags) ? recipe.Tags : "No tags available";
+        RecipeSource.Text = !string.IsNullOrEmpty(recipe.Source) ? recipe.Source : "No source available";
+        RecipeYoutubeLink.Text = !string.IsNullOrEmpty(recipe.YoutubeLink) ? recipe.YoutubeLink : "No YouTube link available";
         if (!string.IsNullOrEmpty(recipe.MealThumb))
         {
             RecipeImage.Source = recipe.MealThumb;
@@ -23,7 +26,6 @@ public partial class RecipeDetailsPage : ContentPage
             RecipeImage.IsVisible = false; 
         }
 
-
         Debug.WriteLine($"Recipe details:\n" +
                   $"Title: {recipe.Title}\n" +
                   $"Category: {recipe.Category}\n" +
@@ -32,11 +34,6 @@ public partial class RecipeDetailsPage : ContentPage
                   $"Source: {recipe.Source}\n" +
                   $"YouTube: {recipe.YoutubeLink}");
 
-        RecipeDescription.Text = recipe.Description ?? "No description available";
-
-        RecipeTags.Text = !string.IsNullOrEmpty(recipe.Tags) ? recipe.Tags : "No tags available";
-        RecipeSource.Text = !string.IsNullOrEmpty(recipe.Source) ? recipe.Source : "No source available";
-        RecipeYoutubeLink.Text = !string.IsNullOrEmpty(recipe.YoutubeLink) ? recipe.YoutubeLink : "No YouTube link available";
     }
 
 
@@ -54,7 +51,6 @@ public partial class RecipeDetailsPage : ContentPage
             YoutubeLink = RecipeYoutubeLink.Text
         };
 
-       
         try
         {
             DatabaseManager.Instance.InsertRecord(recipe);
@@ -71,7 +67,10 @@ public partial class RecipeDetailsPage : ContentPage
         await Navigation.PopAsync();
     }
 
-
+    private async void OnRecipesListClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new RecipesListPage());
+    }
     private async void OnSourceTapped(object sender, EventArgs e)
     {
         if (!string.IsNullOrEmpty(RecipeSource.Text) && RecipeSource.Text != "No source available")

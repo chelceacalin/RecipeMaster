@@ -18,7 +18,7 @@
                                BackgroundColor="#333333">
                             <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="10">
 
-                                <!-- Imaginea rețetei -->
+                                <!-- Binding pentru imagine -->
                                 <Image Source="{Binding MealThumb}"
                                        HeightRequest="60"
                                        WidthRequest="60"
@@ -44,8 +44,8 @@
                                     <Button Text="Edit"
                                             BackgroundColor="#4CAF50"
                                             TextColor="White"
-                                            FontSize="12"
-                                            WidthRequest="50"
+                                            FontSize="10"
+                                            WidthRequest="60"
                                             HeightRequest="35"
                                             Clicked="OnEditClicked"
                                             CommandParameter="{Binding .}" />
@@ -53,8 +53,8 @@
                                     <Button Text="Delete"
                                             BackgroundColor="#F44336"
                                             TextColor="White"
-                                            FontSize="12"
-                                            WidthRequest="50"
+                                            FontSize="10"
+                                            WidthRequest="60"
                                             HeightRequest="35"
                                             Clicked="OnDeleteClicked"
                                             CommandParameter="{Binding .}" />

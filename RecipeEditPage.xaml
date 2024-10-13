@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RecipeMaster.RecipeEditPage"
+             Title="Edit Recipe"
+             BackgroundColor="#1c1c1c">
+
+    <!-- Adăugăm butonul "Go to Main Page" în toolbar -->
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Go to Main Page" Clicked="OnGoToMainPageClicked" Priority="0" Order="Primary" />
+    </ContentPage.ToolbarItems>
+
+    <StackLayout Padding="10" Spacing="15">
+        <Label Text="Edit Recipe" FontSize="Large" HorizontalOptions="Center" TextColor="White" />
+
+        <Label Text="Image" FontSize="Medium" TextColor="White" />
+        <Image x:Name="RecipeImage" HeightRequest="150" WidthRequest="150" Aspect="AspectFill" HorizontalOptions="Center" />
+
+        <Label Text="Title" FontSize="Medium" TextColor="White" />
+        <Entry x:Name="TitleEntry" Text="{Binding Title}" TextColor="White" />
+
+        <Label Text="Category" FontSize="Medium" TextColor="White" />
+        <Entry x:Name="CategoryEntry" Text="{Binding Category}" TextColor="White" />
+
+       
+        <Label Text="Image URL" FontSize="Medium" TextColor="White" />
+        <Entry x:Name="ImageUrlEntry" Text="{Binding MealThumb}" TextColor="White" />
+
+        <!-- Butoanele Save și Cancel pe aceeași linie -->
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20">
+            <Button Text="Save" BackgroundColor="#4CAF50" TextColor="White" Clicked="OnSaveClicked" />
+            <Button Text="Cancel" BackgroundColor="#FF5722" TextColor="White" Clicked="OnBackClicked" />
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

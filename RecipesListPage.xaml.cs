@@ -15,8 +15,16 @@ public partial class RecipesListPage : ContentPage
         try
         {
             var recipes = DatabaseManager.Instance.GetAllRecords<Recipe>();
+
             if (recipes != null && recipes.Count > 0)
             {
+                foreach (var recipe in recipes)
+                {
+                    if (!string.IsNullOrEmpty(recipe.MealThumb))
+                    {
+                        recipe.MealThumb = recipe.MealThumb.Replace("Uri: ", "");
+                    }
+                }
                 RecipesListView.ItemsSource = recipes;
             }
             else
@@ -42,9 +50,10 @@ public partial class RecipesListPage : ContentPage
 
         if (recipe != null)
         {
-            await DisplayAlert("Edit", $"Editing recipe: {recipe.Title}", "OK");
+            await Navigation.PushAsync(new RecipeEditPage(recipe));
         }
     }
+
 
     private async void OnDeleteClicked(object sender, EventArgs e)
     {

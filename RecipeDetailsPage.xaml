@@ -4,8 +4,11 @@
              x:Class="RecipeMaster.RecipeDetailsPage"
              Title="Recipe Details"
              BackgroundColor="#2c2c2c">
+
+    <!-- Toolbar cu buton de back și un nou buton pentru lista de rețete -->
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Back" Clicked="OnBackClicked" Priority="0" Order="Primary" />
+        <ToolbarItem Text="Recipes List" Clicked="OnRecipesListClicked" Priority="1" Order="Primary" />
     </ContentPage.ToolbarItems>
 
     <ScrollView>
