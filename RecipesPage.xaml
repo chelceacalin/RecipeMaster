@@ -32,15 +32,25 @@
                        Aspect="AspectFill"
                        Margin="0,10,0,10"/>
 
-                <!-- Buton pentru detalii -->
-                <Button Text="Details" 
-                        Clicked="OnDetailsClicked"
-                        HorizontalOptions="Center" 
-                        TextColor="White" 
-                        BackgroundColor="#ff5722"
-                        CornerRadius="20"
-                        WidthRequest="150"
-                        FontAttributes="Bold" />
+                <!-- Butoane pentru detalii și refresh -->
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                    <Button Text="Details" 
+                            Clicked="OnDetailsClicked"
+                            TextColor="White" 
+                            BackgroundColor="#ff5722"
+                            CornerRadius="20"
+                            WidthRequest="150"
+                            FontAttributes="Bold" />
+
+                    <!-- Buton pentru refresh -->
+                    <Button Text="Refresh" 
+                            Clicked="OnRefreshClicked"
+                            TextColor="White" 
+                            BackgroundColor="#4caf50"
+                            CornerRadius="20"
+                            WidthRequest="150"
+                            FontAttributes="Bold" />
+                </HorizontalStackLayout>
             </StackLayout>
         </Frame>
 

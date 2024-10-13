@@ -1,18 +1,16 @@
-﻿using Newtonsoft.Json.Linq;
-using RecipeMaster.Model;
-using SQLite;
+﻿using RecipeMaster.Model;
 using System.Net.Http.Json;
 
 namespace RecipeMaster;
 
 public partial class RecipesPage : ContentPage
 {
-	HttpClient _httpClient = new HttpClient();
+    HttpClient _httpClient = new HttpClient();
     private Recipe _randomRecipe;
     public RecipesPage()
-	{
-		InitializeComponent();
-         LoadRandomRecipe();
+    {
+        InitializeComponent();
+        LoadRandomRecipe();
     }
 
     private async Task LoadRandomRecipe()
@@ -24,7 +22,7 @@ public partial class RecipesPage : ContentPage
 
             if (response != null && response.meals != null && response.meals.Count > 0)
             {
-                var meal = response.meals[0]; // Prima rețetă din listă
+                var meal = response.meals[0];
                 _randomRecipe = new Recipe
                 {
                     Title = meal.strMeal,
@@ -32,18 +30,17 @@ public partial class RecipesPage : ContentPage
                     Description = meal.strInstructions,
                     MealThumb = meal.strMealThumb,
                     YoutubeLink = meal.strYoutube,
-                    Area= meal.strArea,
-                    Tags= meal.strTags,
-                    Source=meal.strSource
+                    Area = meal.strArea,
+                    Tags = meal.strTags,
+                    Source = meal.strSource
                 };
 
-                // Actualizează interfața utilizatorului cu datele obținute
-                RandomRecipeTitle.Text = _randomRecipe.Title; // Setează titlul rețetei
-                RandomRecipeCategory.Text = _randomRecipe.Category; // Setează categoria rețetei
+                RandomRecipeTitle.Text = _randomRecipe.Title;
+                RandomRecipeCategory.Text = _randomRecipe.Category;
 
                 if (!string.IsNullOrEmpty(_randomRecipe.MealThumb))
                 {
-                    RandomRecipeImage.Source = _randomRecipe.MealThumb; // Setează imaginea rețetei
+                    RandomRecipeImage.Source = _randomRecipe.MealThumb;
                 }
             }
             else
@@ -65,8 +62,7 @@ public partial class RecipesPage : ContentPage
     {
         if (_randomRecipe != null)
         {
-            // Navighează către pagina de detalii și transmite rețeta selectată
-           await Navigation.PushAsync(new RecipeDetailsPage(_randomRecipe));
+            await Navigation.PushAsync(new RecipeDetailsPage(_randomRecipe));
         }
         else
         {
@@ -74,6 +70,10 @@ public partial class RecipesPage : ContentPage
         }
     }
 
+    private async void OnRefreshClicked(object sender, EventArgs e)
+    {
+        await LoadRandomRecipe();
+    }
 
     public class Meal
     {
@@ -91,16 +91,4 @@ public partial class RecipesPage : ContentPage
     {
         public List<Meal> meals { get; set; }
     }
-
-    private async void OnSaveRandomRecipeClicked(object sender, EventArgs e)
-    {
-        //using (var connection = new SQLiteConnection(App.DatabasePath))
-        //{
-        //    connection.CreateTable<Recipe>();
-        //    connection.Insert(_randomRecipe);  // Salvează rețeta random cu toate câmpurile
-        //}
-        //await DisplayAlert("Succes", "Rețeta a fost salvată în baza de date", "OK");
-    }
-
-
 }

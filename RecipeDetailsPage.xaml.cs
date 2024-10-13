@@ -5,23 +5,21 @@ namespace RecipeMaster;
 
 public partial class RecipeDetailsPage : ContentPage
 {
-    // Constructor unic pentru RecipeDetailsPage
     public RecipeDetailsPage(Recipe recipe)
     {
         InitializeComponent();
 
-        // Populează pagina cu detaliile rețetei
         RecipeTitle.Text = recipe.Title ?? "No title available";
         RecipeCategory.Text = recipe.Category ?? "No category";
         RecipeArea.Text = recipe.Area ?? "No area";
 
         if (!string.IsNullOrEmpty(recipe.MealThumb))
         {
-            RecipeImage.Source = recipe.MealThumb; // Setează imaginea dacă există
+            RecipeImage.Source = recipe.MealThumb;
         }
         else
         {
-            RecipeImage.IsVisible = false; // Ascunde imaginea dacă nu este disponibilă
+            RecipeImage.IsVisible = false; 
         }
 
 
@@ -35,7 +33,6 @@ public partial class RecipeDetailsPage : ContentPage
 
         RecipeDescription.Text = recipe.Description ?? "No description available";
 
-        // Asigură-te că sunt setate valorile pentru Tags, Source și YouTube
         RecipeTags.Text = !string.IsNullOrEmpty(recipe.Tags) ? recipe.Tags : "No tags available";
         RecipeSource.Text = !string.IsNullOrEmpty(recipe.Source) ? recipe.Source : "No source available";
         RecipeYoutubeLink.Text = !string.IsNullOrEmpty(recipe.YoutubeLink) ? recipe.YoutubeLink : "No YouTube link available";
@@ -47,7 +44,6 @@ public partial class RecipeDetailsPage : ContentPage
     }
 
 
-    // Metoda pentru tap pe RecipeSource
     private async void OnSourceTapped(object sender, EventArgs e)
     {
         if (!string.IsNullOrEmpty(RecipeSource.Text) && RecipeSource.Text != "No source available")
@@ -64,7 +60,6 @@ public partial class RecipeDetailsPage : ContentPage
         }
     }
 
-    // Metoda pentru tap pe RecipeYoutubeLink
     private async void OnYoutubeTapped(object sender, EventArgs e)
     {
         if (!string.IsNullOrEmpty(RecipeYoutubeLink.Text) && RecipeYoutubeLink.Text != "No YouTube link available")
@@ -72,7 +67,7 @@ public partial class RecipeDetailsPage : ContentPage
             try
             {
                 Uri uri = new Uri(RecipeYoutubeLink.Text);
-                await Launcher.OpenAsync(uri); // Deschide URL-ul în browser
+                await Launcher.OpenAsync(uri); 
             }
             catch (Exception ex)
             {
