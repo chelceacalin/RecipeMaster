@@ -37,7 +37,7 @@ public partial class RecipeDetailsPage : ContentPage
     }
 
 
-    private void OnSaveClicked(object sender, EventArgs e)
+    private async void OnSaveClicked(object sender, EventArgs e)
     {
         var recipe = new Recipe
         {
@@ -55,6 +55,7 @@ public partial class RecipeDetailsPage : ContentPage
         {
             DatabaseManager.Instance.InsertRecord(recipe);
             DisplayAlert("Success", "The recipe has been saved successfully!", "OK");
+            await Navigation.PopToRootAsync();
         }
         catch (Exception ex)
         {

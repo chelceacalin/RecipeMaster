@@ -4,6 +4,16 @@
              x:Class="RecipeMaster.RecipesPage"
              Title="RecipesPage">
 
+
+    <Shell.ToolbarItems>
+        <ToolbarItem Text="Statistics"
+                     Priority="1"
+                     Order="Secondary"
+                     Clicked="OnStatisticsPageClicked"
+                  />
+    </Shell.ToolbarItems>
+   
+
     <StackLayout Padding="10">
 
         <!-- Card întunecat pentru Random Daily Recipe -->

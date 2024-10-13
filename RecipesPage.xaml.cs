@@ -6,11 +6,16 @@ namespace RecipeMaster;
 public partial class RecipesPage : ContentPage
 {
     HttpClient _httpClient = new HttpClient();
-    private Recipe _randomRecipe;
+    private Recipe _randomRecipe=new Recipe();
     public RecipesPage()
     {
         InitializeComponent();
-        LoadRandomRecipe();
+    }
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        LoadRandomRecipe(); 
     }
 
 
@@ -18,7 +23,10 @@ public partial class RecipesPage : ContentPage
     {
         await Navigation.PushAsync(new RecipesListPage());
     }
-  
+    private async void OnStatisticsPageClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new StatisticsPage());
+    }
     private async Task LoadRandomRecipe()
     {
         try

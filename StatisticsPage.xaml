@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RecipeMaster.StatisticsPage"
+             Title="Statistics">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Main Page" Clicked="OnBackToMainPageClicked" />
+        <ToolbarItem Text="List View" Clicked="OnBackToListViewClicked" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <StackLayout Padding="10" Spacing="20">
+            <!-- Title for Pie Chart -->
+            <Label Text="Recipes by Category"
+                   FontSize="Large"
+                   HorizontalOptions="Center"
+                   TextColor="Black" />
+
+            <!-- Simulated Pie Chart using BoxViews -->
+            <StackLayout x:Name="PieChartLayout"
+                         Orientation="Horizontal"
+                         HorizontalOptions="Center"
+                         Spacing="10" />
+
+            <!-- Title for Bar Chart -->
+            <Label Text="Recipes by Area"
+                   FontSize="Large"
+                   HorizontalOptions="Center"
+                   TextColor="Black" />
+
+            <!-- Simulated Bar Chart using BoxViews -->
+            <StackLayout x:Name="BarChartLayout"
+                         Orientation="Vertical"
+                         Spacing="10" />
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
