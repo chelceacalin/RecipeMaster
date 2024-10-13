@@ -13,6 +13,12 @@ public partial class RecipesPage : ContentPage
         LoadRandomRecipe();
     }
 
+
+    private async void OnShowRecipesClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new RecipesListPage());
+    }
+  
     private async Task LoadRandomRecipe()
     {
         try

@@ -4,15 +4,13 @@
              x:Class="RecipeMaster.RecipeDetailsPage"
              Title="Recipe Details"
              BackgroundColor="#2c2c2c">
-    <!-- Fundal întunecat pentru întreaga pagină -->
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Back" Clicked="OnBackClicked" Priority="0" Order="Primary" />
     </ContentPage.ToolbarItems>
+
     <ScrollView>
         <StackLayout Padding="10" Spacing="15" BackgroundColor="#3c3c3c">
-            <!-- Fundal mai deschis pentru secțiuni -->
 
-            <!-- Afișează titlul rețetei -->
             <Frame BackgroundColor="#454545" Padding="10" CornerRadius="10">
                 <Label x:Name="RecipeTitle" 
                        FontSize="Large" 
@@ -21,35 +19,29 @@
                        TextColor="White" />
             </Frame>
 
-            <!-- Afișează categoria și zona -->
-                <Label Text="Category: " FontSize="Medium" TextColor="#cccccc" />
+            <Label Text="Category:" FontSize="Medium" TextColor="#cccccc" />
             <Frame BackgroundColor="#454545" Padding="10" CornerRadius="10">
                 <Label x:Name="RecipeCategory" FontSize="Medium" FontAttributes="Italic" TextColor="White" />
             </Frame>
 
-                <Label Text="Area: " FontSize="Medium" TextColor="#cccccc" />
+            <Label Text="Area:" FontSize="Medium" TextColor="#cccccc" />
             <Frame BackgroundColor="#454545" Padding="10" CornerRadius="10">
                 <Label x:Name="RecipeArea" FontSize="Medium" FontAttributes="Italic" TextColor="White" />
-
             </Frame>
-            <!-- Afișează imaginea rețetei -->
+
             <Image x:Name="RecipeImage" HeightRequest="200" WidthRequest="200" Aspect="AspectFill" HorizontalOptions="Center" />
 
-            <!-- Afișează descrierea rețetei -->
             <Label Text="Description:" FontSize="Medium" FontAttributes="Bold" TextColor="#cccccc" />
             <Frame BackgroundColor="#454545" Padding="10" CornerRadius="10">
                 <Label x:Name="RecipeDescription" FontSize="Small" TextColor="White" LineBreakMode="WordWrap" />
             </Frame>
 
-            <!-- Afișează tag-urile -->
             <Label Text="Tags:" FontSize="Medium" FontAttributes="Bold" TextColor="White" />
             <Frame BackgroundColor="#454545" Padding="10" CornerRadius="10">
                 <Label x:Name="RecipeTags" FontSize="Small" TextColor="White" LineBreakMode="WordWrap" />
             </Frame>
 
-            <!-- Afișează sursa rețetei -->
             <Label Text="Source:" FontSize="Medium" FontAttributes="Bold" TextColor="White" />
-
             <Frame BackgroundColor="#454545" Padding="10" CornerRadius="10">
                 <Label x:Name="RecipeSource" FontSize="Small" TextColor="CadetBlue" LineBreakMode="WordWrap">
                     <Label.GestureRecognizers>
@@ -58,7 +50,6 @@
                 </Label>
             </Frame>
 
-            <!-- Afișează link-ul YouTube -->
             <Label Text="YouTube:" FontSize="Medium" FontAttributes="Bold" TextColor="White" />
             <Frame BackgroundColor="#454545" Padding="10" CornerRadius="10">
                 <Label x:Name="RecipeYoutubeLink" FontSize="Small" TextColor="CadetBlue" LineBreakMode="WordWrap">
@@ -68,6 +59,13 @@
                 </Label>
             </Frame>
 
+            <Button Text="Save" 
+                    BackgroundColor="#ff5722" 
+                    TextColor="White" 
+                    Clicked="OnSaveClicked" 
+                    HorizontalOptions="FillAndExpand" 
+                    VerticalOptions="End" 
+                    FontAttributes="Bold" />
         </StackLayout>
     </ScrollView>
 </ContentPage>

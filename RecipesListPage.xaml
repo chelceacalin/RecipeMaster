@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RecipeMaster.RecipesListPage"
+             Title="Recipes List"
+             BackgroundColor="#1c1c1c">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Back" Clicked="OnBackClicked" Priority="0" Order="Primary" />
+    </ContentPage.ToolbarItems>
+
+    <StackLayout Padding="10">
+        <ListView x:Name="RecipesListView" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame Padding="10" CornerRadius="10" HasShadow="True" Margin="10"
+                               BackgroundColor="#333333">
+                            <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="10">
+
+                                <!-- Imaginea rețetei -->
+                                <Image Source="{Binding MealThumb}"
+                                       HeightRequest="60"
+                                       WidthRequest="60"
+                                       Aspect="AspectFill"
+                                       Grid.RowSpan="2"
+                                       VerticalOptions="Center" />
+
+                                <!-- Detalii despre rețetă (Titlu și Categorie) -->
+                                <StackLayout Grid.Column="1" VerticalOptions="Center">
+                                    <Label Text="{Binding Title}"
+                                           FontSize="Medium"
+                                           FontAttributes="Bold"
+                                           TextColor="White" />
+
+                                    <Label Text="{Binding Category}"
+                                           FontSize="Small"
+                                           FontAttributes="Italic"
+                                           TextColor="#cccccc" />
+                                </StackLayout>
+
+                                <!-- Butoane pentru Edit și Delete -->
+                                <StackLayout Orientation="Horizontal" Grid.Column="2" Grid.RowSpan="2" VerticalOptions="Center" Spacing="5">
+                                    <Button Text="Edit"
+                                            BackgroundColor="#4CAF50"
+                                            TextColor="White"
+                                            FontSize="12"
+                                            WidthRequest="50"
+                                            HeightRequest="35"
+                                            Clicked="OnEditClicked"
+                                            CommandParameter="{Binding .}" />
+
+                                    <Button Text="Delete"
+                                            BackgroundColor="#F44336"
+                                            TextColor="White"
+                                            FontSize="12"
+                                            WidthRequest="50"
+                                            HeightRequest="35"
+                                            Clicked="OnDeleteClicked"
+                                            CommandParameter="{Binding .}" />
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

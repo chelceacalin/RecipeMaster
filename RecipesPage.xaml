@@ -57,13 +57,20 @@
         <Label Text="Recipes List" FontSize="Large" HorizontalOptions="Center" />
 
         <!-- ListView pentru rețetele salvate -->
-        <ListView x:Name="RecipesListView" HasUnevenRows="True">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextCell Text="{Binding Title}" Detail="{Binding Description}" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+
+        <StackLayout Padding="10">
+            <!-- Buton pentru a redirecționa către RecipesListPage -->
+            <Button Text="Show Recipes" 
+            x:Name="ShowRecipesButton"
+            Clicked="OnShowRecipesClicked"
+            BackgroundColor="#4CAF50"
+            TextColor="White"
+            FontAttributes="Bold"
+            HorizontalOptions="Center"
+            VerticalOptions="Start" />
+        </StackLayout>
+
+
 
     </StackLayout>
 </ContentPage>

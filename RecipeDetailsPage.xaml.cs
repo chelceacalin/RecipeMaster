@@ -1,4 +1,5 @@
 ﻿using RecipeMaster.Model;
+using SQLite;
 using System.Diagnostics;
 
 namespace RecipeMaster;
@@ -38,6 +39,33 @@ public partial class RecipeDetailsPage : ContentPage
         RecipeYoutubeLink.Text = !string.IsNullOrEmpty(recipe.YoutubeLink) ? recipe.YoutubeLink : "No YouTube link available";
     }
 
+
+    private void OnSaveClicked(object sender, EventArgs e)
+    {
+        var recipe = new Recipe
+        {
+            Title = RecipeTitle.Text,
+            Description = RecipeDescription.Text,
+            Category = RecipeCategory.Text,
+            Area = RecipeArea.Text,
+            MealThumb = RecipeImage.Source?.ToString(),
+            Tags = RecipeTags.Text,
+            Source = RecipeSource.Text,
+            YoutubeLink = RecipeYoutubeLink.Text
+        };
+
+       
+        try
+        {
+            DatabaseManager.Instance.InsertRecord(recipe);
+            DisplayAlert("Success", "The recipe has been saved successfully!", "OK");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error saving recipe: {ex.Message}");
+            DisplayAlert("Error", "Failed to save recipe.", "OK");
+        }
+    }
     private async void OnBackClicked(object sender, EventArgs e)
     {
         await Navigation.PopAsync();
