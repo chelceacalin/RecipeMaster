@@ -128,4 +128,80 @@ namespace RecipeMaster.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
+    public class Ingredients : INotifyPropertyChanged
+    {
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+        //ingredient name
+        private string _ingredientName;
+        public string IngredientName
+        {
+            get => _ingredientName;
+            set
+            {
+                if(_ingredientName != value)
+                {
+                    _ingredientName = value;
+                    OnPropertyChanged(nameof(_ingredientName));
+                }
+            }
+        }
+
+        // ingredient quantity
+        private string _quantity;
+        public string Quantity
+        {
+            get => Quantity;
+            set
+            {
+                if (_quantity != value)
+                {
+                    _quantity = value;
+                    OnPropertyChanged(nameof(Quantity));
+                }
+
+
+            }
+        }
+
+        //unit of measurement
+        private string _unit;
+        public string Unit
+        {
+            get => _unit;
+            set
+            {
+                if (Unit != value)
+                {
+                    _unit = value;
+                    OnPropertyChanged(nameof(Unit));
+                }
+            }
+        }
+        //Recipe ID which is foreign key to recipe table
+
+        private int _recipeId;
+        public int RecipeId
+        {
+            get => _recipeId;
+            set
+            {
+                if(RecipeId != value)
+                {
+                    _recipeId = value;
+                    OnPropertyChanged(nameof(RecipeId));
+                }
+            }
+        }
+
+        // Implementarea INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
+            protected void OnPropertyChanged(string propertyName)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
+        
+    }
+
 }

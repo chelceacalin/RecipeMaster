@@ -32,7 +32,14 @@ namespace RecipeMaster
         {
             DbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "appdatabase.db");
             _connection = new SQLiteConnection(DbPath);
+            //Enable foreign key constraint - A
+            EnableForeignKeyConstraints();
             Console.WriteLine($"Database path: {DbPath}");
+        }
+        //Enable foreign keys - A
+        private void EnableForeignKeyConstraints()
+        {
+            _connection.Execute("PRAGMA foreign_keys = ON;");
         }
 
         public void CreateTable<T>() where T : new()
