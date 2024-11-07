@@ -2,85 +2,121 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RecipeMaster.RecipesPage"
-             Title="RecipesPage">
+             Title="Recipes"
+             BackgroundColor="#1e1e1e">
 
-
-    <Shell.ToolbarItems>
+    <ContentPage.ToolbarItems>
         <ToolbarItem Text="Statistics"
-                     Priority="1"
-                     Order="Secondary"
-                     Clicked="OnStatisticsPageClicked"
-                  />
-    </Shell.ToolbarItems>
-   
+                    Priority="1"
+                    Order="Secondary"
+                    Clicked="OnStatisticsPageClicked"/>
 
-    <StackLayout Padding="10">
+        
+        <ToolbarItem Text="Saved Recipes"
+                    Priority="2"
+                    Order="Secondary"
+                    Clicked="OnShowRecipesClicked" />
 
-        <!-- Card întunecat pentru Random Daily Recipe -->
-        <Frame BackgroundColor="#1e1e1e" CornerRadius="15" Padding="15" Margin="0,0,0,20" HasShadow="True">
-            <StackLayout>
-                <!-- Afișează titlul rețetei random -->
+        
+        <ToolbarItem Text="Favorite Recipes"
+                    Priority="3"
+                    Order="Secondary"
+                    Clicked="OnShowFavoriteClicked" />
+    </ContentPage.ToolbarItems>
+
+
+    <StackLayout Padding="15" Spacing="15">
+        
+      
+        <Frame BackgroundColor="#333333" CornerRadius="15" Padding="20" HasShadow="True" Margin="0,10,0,20">
+            <StackLayout Spacing="10">
+                <Label Text="Random Recipe of the Day" 
+                       FontSize="Large" 
+                       HorizontalOptions="Center" 
+                       FontAttributes="Bold"
+                       TextColor="#FFD700" />
+
                 <Label x:Name="RandomRecipeTitle" 
                        Text="Recipe Title" 
-                       FontSize="Medium" 
+                       FontSize="Title" 
                        HorizontalOptions="Center" 
                        FontAttributes="Bold"
                        TextColor="White" />
 
-                <!-- Afișează categoria rețetei random -->
                 <Label x:Name="RandomRecipeCategory" 
                        Text="Category" 
-                       FontSize="Small" 
+                       FontSize="Caption" 
                        HorizontalOptions="Center"
                        TextColor="#d3d3d3" />
 
-                <!-- Afișează imaginea rețetei -->
+           
                 <Image x:Name="RandomRecipeImage" 
                        HorizontalOptions="Center" 
-                       HeightRequest="150" 
-                       WidthRequest="150"
+                       HeightRequest="200" 
+                       WidthRequest="200"
                        Aspect="AspectFill"
                        Margin="0,10,0,10"/>
 
-                <!-- Butoane pentru detalii și refresh -->
+                
                 <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
                     <Button Text="Details" 
                             Clicked="OnDetailsClicked"
                             TextColor="White" 
-                            BackgroundColor="#ff5722"
+                            BackgroundColor="#4169E1"
+                            CornerRadius="20"
+                            WidthRequest="120"
+                            FontAttributes="Bold" />
+
+                    <Button x:Name="FavoriteButton"
+                            Text="Add to Favorites"
+                            Clicked="ToggleFavoriteStatus"
+                            TextColor="White" 
+                            BackgroundColor="#FFA313A3"
                             CornerRadius="20"
                             WidthRequest="150"
                             FontAttributes="Bold" />
 
-                    <!-- Buton pentru refresh -->
                     <Button Text="Refresh" 
                             Clicked="OnRefreshClicked"
                             TextColor="White" 
-                            BackgroundColor="#4caf50"
+                            BackgroundColor="green"
                             CornerRadius="20"
-                            WidthRequest="150"
+                            WidthRequest="120"
                             FontAttributes="Bold" />
+
+                   
+                    
                 </HorizontalStackLayout>
             </StackLayout>
         </Frame>
 
-        <Label Text="Recipes List" FontSize="Large" HorizontalOptions="Center" />
+       
+        <Button Text="View All Recipes"
+                BackgroundColor="#4169E1"
+                TextColor="White"
+                FontAttributes="Bold"
+                CornerRadius="10"
+                HorizontalOptions="Fill"
+                VerticalOptions="Start"
+                Clicked="OnShowRecipesClicked" />
 
-        <!-- ListView pentru rețetele salvate -->
+        <Button Text="View Favorites"
+                BackgroundColor="#FFA313A3"
+                TextColor="White"
+                FontAttributes="Bold"
+                CornerRadius="10"
+                HorizontalOptions="Fill"
+                VerticalOptions="Start"
+                Clicked="OnShowFavoriteClicked"/>
 
-        <StackLayout Padding="10">
-            <!-- Buton pentru a redirecționa către RecipesListPage -->
-            <Button Text="Show Recipes" 
-            x:Name="ShowRecipesButton"
-            Clicked="OnShowRecipesClicked"
-            BackgroundColor="#4CAF50"
-            TextColor="White"
-            FontAttributes="Bold"
-            HorizontalOptions="Center"
-            VerticalOptions="Start" />
-        </StackLayout>
-
-
+        <Button Text="View Statistics"
+                BackgroundColor="tomato"
+                TextColor="White"
+                FontAttributes="Bold"
+                CornerRadius="10"
+                HorizontalOptions="Fill"
+                VerticalOptions="Start"
+                Clicked="OnStatisticsPageClicked"/>
 
     </StackLayout>
 </ContentPage>

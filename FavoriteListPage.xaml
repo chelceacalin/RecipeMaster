@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RecipeMaster.FavoriteListPage"
+             Title="Favorite Recipes"
+             BackgroundColor="#2c2c2c">
+
+   
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Back" Clicked="OnBackClicked2" Priority="0" Order="Primary" />
+        <ToolbarItem Text="Saved Recipes" Clicked="OnShowSavedRecipesClicked" Priority="1" Order="Primary" />
+        <ToolbarItem Text="Main Page" Clicked="OnShowMainPageClicked" Priority="2" Order="Primary" />
+    </ContentPage.ToolbarItems>
+
+    <StackLayout Padding="10" Spacing="15">
+        <ListView x:Name="RecipesListView" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame Padding="10" CornerRadius="10" HasShadow="True" Margin="10"
+                               BackgroundColor="#333333">
+                            <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="10">
+
+                            
+                                <Image Source="{Binding MealThumb}"
+                                       HeightRequest="60"
+                                       WidthRequest="60"
+                                       Aspect="AspectFill"
+                                       Grid.RowSpan="2"
+                                       VerticalOptions="Center" />
+
+                             
+                                <StackLayout Grid.Column="1" VerticalOptions="Center">
+                                    <Label Text="{Binding Title}"
+                                           FontSize="Medium"
+                                           FontAttributes="Bold"
+                                           TextColor="White" />
+
+                                    <Label Text="{Binding Category}"
+                                           FontSize="Small"
+                                           FontAttributes="Italic"
+                                           TextColor="#cccccc" />
+                                </StackLayout>
+
+                           
+                                <StackLayout Orientation="Horizontal" Grid.Column="2" Grid.RowSpan="2" VerticalOptions="Center" Spacing="5">
+                                    <Button Text="Edit"
+                                            BackgroundColor="#4CAF50"
+                                            TextColor="White"
+                                            FontSize="12"
+                                            WidthRequest="80"
+                                            HeightRequest="35"
+                                            Clicked="OnEditClicked2"
+                                            CommandParameter="{Binding .}" />
+
+                                    <Button Text="Remove"
+                                            BackgroundColor="#FFA313A3"
+                                            TextColor="White"
+                                            FontSize="12"
+                                            WidthRequest="80"  
+                                            HeightRequest="35"
+                                            Clicked="OnDeleteClicked2"
+                                            CommandParameter="{Binding .}" />
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

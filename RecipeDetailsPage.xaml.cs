@@ -1,15 +1,18 @@
 ﻿using RecipeMaster.Model;
-using SQLite;
 using System.Diagnostics;
 
 namespace RecipeMaster;
 
 public partial class RecipeDetailsPage : ContentPage
 {
+    private Recipe _currentRecipe;
+
     public RecipeDetailsPage(Recipe recipe)
     {
         InitializeComponent();
+        _currentRecipe = recipe;
 
+      
         RecipeTitle.Text = recipe.Title ?? "No title available";
         RecipeCategory.Text = recipe.Category ?? "No category";
         RecipeArea.Text = recipe.Area ?? "No area";
@@ -17,6 +20,7 @@ public partial class RecipeDetailsPage : ContentPage
         RecipeTags.Text = !string.IsNullOrEmpty(recipe.Tags) ? recipe.Tags : "No tags available";
         RecipeSource.Text = !string.IsNullOrEmpty(recipe.Source) ? recipe.Source : "No source available";
         RecipeYoutubeLink.Text = !string.IsNullOrEmpty(recipe.YoutubeLink) ? recipe.YoutubeLink : "No YouTube link available";
+        
         if (!string.IsNullOrEmpty(recipe.MealThumb))
         {
             RecipeImage.Source = recipe.MealThumb;
@@ -26,6 +30,10 @@ public partial class RecipeDetailsPage : ContentPage
             RecipeImage.IsVisible = false; 
         }
 
+       
+        bool isFavorite = DatabaseManager.Instance.GetFavoriteRecipes().Any(f => f.Id == _currentRecipe.Id);
+        UpdateFavoriteButtonText(isFavorite);
+
         Debug.WriteLine($"Recipe details:\n" +
                   $"Title: {recipe.Title}\n" +
                   $"Category: {recipe.Category}\n" +
@@ -33,10 +41,39 @@ public partial class RecipeDetailsPage : ContentPage
                   $"Tags: {recipe.Tags}\n" +
                   $"Source: {recipe.Source}\n" +
                   $"YouTube: {recipe.YoutubeLink}");
-
     }
 
+   
+    private void OnAddToFavoriteClicked(object sender, EventArgs e)
+    {
+        if (_currentRecipe != null)
+        {
+          
+            bool isFavorite = DatabaseManager.Instance.GetFavoriteRecipes().Any(f => f.Id == _currentRecipe.Id);
 
+            if (isFavorite)
+            {
+                
+                DatabaseManager.Instance.RemoveFromFavorites(_currentRecipe.Id);
+            }
+            else
+            {
+                
+                DatabaseManager.Instance.AddToFavorites(_currentRecipe.Id);
+            }
+
+          
+            UpdateFavoriteButtonText(!isFavorite);
+        }
+    }
+
+ 
+    private void UpdateFavoriteButtonText(bool isFavorite)
+    {
+        FavoriteButton.Text = isFavorite ? "Remove from Favorites" : "Add to Favorites";
+    }
+
+ 
     private async void OnSaveClicked(object sender, EventArgs e)
     {
         var recipe = new Recipe
@@ -63,15 +100,31 @@ public partial class RecipeDetailsPage : ContentPage
             DisplayAlert("Error", "Failed to save recipe.", "OK");
         }
     }
+    
     private async void OnBackClicked(object sender, EventArgs e)
     {
-        await Navigation.PopAsync();
+        try
+        {
+            if (Navigation.NavigationStack.Count > 1)
+            {
+                await Navigation.PopAsync();
+            }
+            else
+            {   
+                Console.WriteLine("No pages to pop in navigation stack.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error navigating back: {ex.Message}");
+        }
     }
 
     private async void OnRecipesListClicked(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new RecipesListPage());
     }
+    
     private async void OnSourceTapped(object sender, EventArgs e)
     {
         if (!string.IsNullOrEmpty(RecipeSource.Text) && RecipeSource.Text != "No source available")
@@ -79,7 +132,7 @@ public partial class RecipeDetailsPage : ContentPage
             try
             {
                 Uri uri = new Uri(RecipeSource.Text);
-                await Launcher.OpenAsync(uri); // Deschide URL-ul în browser
+                await Launcher.OpenAsync(uri);
             }
             catch (Exception ex)
             {

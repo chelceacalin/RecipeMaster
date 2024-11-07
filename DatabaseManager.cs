@@ -3,12 +3,13 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics;
+using RecipeMaster.Model;
 
 namespace RecipeMaster
 {
     class DatabaseManager
     {
-        private static DatabaseManager _instance;
+        private static DatabaseManager? _instance;
         private static readonly object _lock = new object();
         private readonly SQLiteConnection _connection;
         public string DbPath { get; private set; }
@@ -33,6 +34,9 @@ namespace RecipeMaster
             DbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "appdatabase.db");
             _connection = new SQLiteConnection(DbPath);
             Console.WriteLine($"Database path: {DbPath}");
+
+            CreateTable<Recipe>(); // Tabela pentru rețete
+            CreateTable<Favorite>(); // Tabela pentru favorite
         }
 
         public void CreateTable<T>() where T : new()
@@ -130,7 +134,72 @@ namespace RecipeMaster
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error executing query on {typeof(T).Name}: {ex.Message}");
-                return new List<T>(); // Returnăm o listă goală în caz de eroare
+                return new List<T>(); 
+            }
+        }
+
+        public void AddToFavorites(int recipeId)
+        {
+            try
+            {
+                
+                var existingFavorite = _connection.Table<Favorite>().FirstOrDefault(f => f.RecipeId == recipeId);
+                if (existingFavorite == null)
+                {
+                    var favorite = new Favorite { RecipeId = recipeId };
+                    _connection.Insert(favorite);
+                    Debug.WriteLine($"Successfully added recipe ID {recipeId} to favorites.");
+                }
+                else
+                {
+                    Debug.WriteLine($"Recipe ID {recipeId} is already in favorites.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error adding recipe ID {recipeId} to favorites: {ex.Message}");
+            }
+        }
+
+        public void RemoveFromFavorites(int recipeId)
+        {
+            try
+            {
+                // Găsește intrarea în tabela Favorite după ID-ul rețetei și o șterge
+                var favorite = _connection.Table<Favorite>().FirstOrDefault(f => f.RecipeId == recipeId);
+                if (favorite != null)
+                {
+                    _connection.Delete(favorite);
+                    Debug.WriteLine($"Successfully removed recipe ID {recipeId} from favorites.");
+                }
+                else
+                {
+                    Debug.WriteLine($"Recipe ID {recipeId} is not in favorites.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error removing recipe ID {recipeId} from favorites: {ex.Message}");
+            }
+        }
+
+
+        public List<Recipe> GetFavoriteRecipes()
+        {
+            try
+            {
+                
+                var favoriteRecipeIds = _connection.Table<Favorite>().Select(f => f.RecipeId).ToList();
+
+                
+                var favoriteRecipes = _connection.Table<Recipe>().Where(r => favoriteRecipeIds.Contains(r.Id)).ToList();
+                Debug.WriteLine($"Successfully retrieved {favoriteRecipes.Count} favorite recipes.");
+                return favoriteRecipes;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error retrieving favorite recipes: {ex.Message}");
+                return new List<Recipe>();
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using RecipeMaster.Model;
+using System.Diagnostics;
 
 namespace RecipeMaster
 {
@@ -36,26 +37,28 @@ namespace RecipeMaster
             {
                 double percentage = (double)entry.Value / total;
 
-                // Create a BoxView for each "slice" of the pie chart
+              
                 var pieSlice = new BoxView
                 {
-                    WidthRequest = percentage * 300,  // Simulate width based on percentage
-                    HeightRequest = 50,
+                    WidthRequest = percentage * 200, 
+                    HeightRequest = 30,
                     BackgroundColor = GetRandomColor(),
-                    HorizontalOptions = LayoutOptions.FillAndExpand
+                    HorizontalOptions = LayoutOptions.FillAndExpand,
+                    CornerRadius = 15
                 };
 
-                // Add a label for each slice
+                
                 var label = new Label
                 {
                     Text = $"{entry.Key}: {percentage:P1}",
-                    FontSize = 12,
+                    FontSize = 14,
                     HorizontalOptions = LayoutOptions.Center,
-                    TextColor = Color.FromRgb(255, 255, 255)
+                    TextColor = Color.FromRgb(220, 220, 220),
+                    FontAttributes = FontAttributes.Bold
                 };
 
-                PieChartLayout.Children.Add(pieSlice);
                 PieChartLayout.Children.Add(label);
+                PieChartLayout.Children.Add(pieSlice);
             }
         }
 
@@ -69,15 +72,17 @@ namespace RecipeMaster
                     Text = $"{entry.Key}: {entry.Value}",
                     FontSize = 14,
                     HorizontalOptions = LayoutOptions.Start,
-                    TextColor = Color.FromRgb(255, 255, 255)
+                    TextColor = Color.FromRgb(220, 220, 220),
+                    FontAttributes = FontAttributes.Bold
                 };
 
                 var bar = new BoxView
                 {
-                    HeightRequest = entry.Value * 10,  // Adjust height based on value
-                    WidthRequest = 200,
+                    HeightRequest = 20,
+                    WidthRequest = entry.Value * 10, 
                     BackgroundColor = GetRandomColor(),
-                    HorizontalOptions = LayoutOptions.Start
+                    HorizontalOptions = LayoutOptions.Start,
+                    CornerRadius = 10
                 };
 
                 BarChartLayout.Children.Add(label);
@@ -88,7 +93,7 @@ namespace RecipeMaster
         private Color GetRandomColor()
         {
             Random rand = new Random();
-            return Color.FromRgb(rand.Next(256), rand.Next(256), rand.Next(256));
+            return Color.FromRgb(rand.Next(100, 256), rand.Next(100, 256), rand.Next(100, 256));
         }
     }
 }

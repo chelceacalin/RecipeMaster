@@ -1,4 +1,5 @@
 ﻿using RecipeMaster.Model;
+using System.Diagnostics;
 
 namespace RecipeMaster;
 
@@ -7,40 +8,36 @@ public partial class RecipesListPage : ContentPage
     public RecipesListPage()
     {
         InitializeComponent();
-        LoadRecipes();
+        LoadSavedRecipes();
     }
 
-    private void LoadRecipes()
+    private void LoadSavedRecipes()
     {
-        try
-        {
-            var recipes = DatabaseManager.Instance.GetAllRecords<Recipe>();
+        var recipes = DatabaseManager.Instance.GetAllRecords<Recipe>();
 
-            if (recipes != null && recipes.Count > 0)
-            {
-                foreach (var recipe in recipes)
-                {
-                    if (!string.IsNullOrEmpty(recipe.MealThumb))
-                    {
-                        recipe.MealThumb = recipe.MealThumb.Replace("Uri: ", "");
-                    }
-                }
-                RecipesListView.ItemsSource = recipes;
-            }
-            else
-            {
-                DisplayAlert("Info", "No recipes found.", "OK");
-            }
-        }
-        catch (Exception ex)
+        foreach (var recipe in recipes)
         {
-            DisplayAlert("Error", "Failed to load recipes: " + ex.Message, "OK");
+            
+            recipe.IsFavorite = DatabaseManager.Instance.GetAllRecords<Favorite>().Any(f => f.RecipeId == recipe.Id);
         }
+
+        RecipesListView.ItemsSource = recipes;
     }
+
 
     private async void OnBackClicked(object sender, EventArgs e)
     {
         await Navigation.PopAsync();
+    }
+
+    private async void OnShowFavoriteClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new FavoriteListPage());
+    }
+
+    private async void OnShowMainPageClicked(object sender, EventArgs e)
+    {
+        await Navigation.PopToRootAsync();
     }
 
     private async void OnEditClicked(object sender, EventArgs e)
@@ -54,7 +51,6 @@ public partial class RecipesListPage : ContentPage
         }
     }
 
-
     private async void OnDeleteClicked(object sender, EventArgs e)
     {
         var button = sender as Button;
@@ -62,21 +58,38 @@ public partial class RecipesListPage : ContentPage
 
         if (recipe != null)
         {
-            var confirm = await DisplayAlert("Confirm", $"Are you sure you want to delete {recipe.Title}?", "Yes", "No");
-
+            bool confirm = await DisplayAlert("Confirm", $"Are you sure you want to delete {recipe.Title}?", "Yes", "No");
             if (confirm)
             {
-                try
-                {
-                    DatabaseManager.Instance.DeleteRecord(recipe);
-                    LoadRecipes();
-                    await DisplayAlert("Deleted", $"{recipe.Title} was deleted.", "OK");
-                }
-                catch (Exception ex)
-                {
-                    await DisplayAlert("Error", $"Failed to delete {recipe.Title}: {ex.Message}", "OK");
-                }
+                DatabaseManager.Instance.DeleteRecord(recipe);
+                LoadSavedRecipes();
+                await DisplayAlert("Deleted", $"{recipe.Title} has been deleted.", "OK");
             }
+        }
+    }
+
+    private void OnToggleFavoriteClicked(object sender, EventArgs e)
+    {
+        var button = sender as Button;
+        var recipe = button?.CommandParameter as Recipe;
+
+        if (recipe != null)
+        {
+            bool isFavorite = DatabaseManager.Instance.GetAllRecords<Favorite>().Any(f => f.RecipeId == recipe.Id);
+
+            if (isFavorite)
+            {
+                DatabaseManager.Instance.RemoveFromFavorites(recipe.Id);
+                Debug.WriteLine($"Removed recipe ID {recipe.Id} from favorites.");
+            }
+            else
+            {
+                DatabaseManager.Instance.AddToFavorites(recipe.Id);
+                Debug.WriteLine($"Added recipe ID {recipe.Id} to favorites.");
+            }
+
+            
+            recipe.IsFavorite = !isFavorite;
         }
     }
 }
