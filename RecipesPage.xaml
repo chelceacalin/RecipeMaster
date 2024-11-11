@@ -7,116 +7,124 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Statistics"
-                    Priority="1"
-                    Order="Secondary"
-                    Clicked="OnStatisticsPageClicked"/>
+                     Priority="1"
+                     Order="Secondary"
+                     Clicked="OnStatisticsPageClicked"/>
 
-        
         <ToolbarItem Text="Saved Recipes"
-                    Priority="2"
-                    Order="Secondary"
-                    Clicked="OnShowRecipesClicked" />
+                     Priority="2"
+                     Order="Secondary"
+                     Clicked="OnShowRecipesClicked" />
 
-        
         <ToolbarItem Text="Favorite Recipes"
-                    Priority="3"
-                    Order="Secondary"
-                    Clicked="OnShowFavoriteClicked" />
+                     Priority="3"
+                     Order="Secondary"
+                     Clicked="OnShowFavoriteClicked" />
+
+        <ToolbarItem Text="Credits"
+                     Priority="4"
+                     Order="Secondary"
+                     Clicked="OnShowCreditsPageClicked" />
     </ContentPage.ToolbarItems>
+        <StackLayout Padding="15" Spacing="15">
+  
+            <Frame BackgroundColor="#333333" CornerRadius="15" Padding="20" HasShadow="True" Margin="0,10,0,20">
+                <StackLayout Spacing="10">
+                    <Label Text="Random Recipe of the Day" 
+                           FontSize="Large" 
+                           HorizontalOptions="Center" 
+                           FontAttributes="Bold"
+                           TextColor="#FFD700" />
 
+                    <Label x:Name="RandomRecipeTitle" 
+                           Text="Recipe Title" 
+                           FontSize="Title" 
+                           HorizontalOptions="Center" 
+                           FontAttributes="Bold"
+                           TextColor="White" />
 
-    <StackLayout Padding="15" Spacing="15">
-        
-      
-        <Frame BackgroundColor="#333333" CornerRadius="15" Padding="20" HasShadow="True" Margin="0,10,0,20">
-            <StackLayout Spacing="10">
-                <Label Text="Random Recipe of the Day" 
-                       FontSize="Large" 
-                       HorizontalOptions="Center" 
-                       FontAttributes="Bold"
-                       TextColor="#FFD700" />
+                    <Label x:Name="RandomRecipeCategory" 
+                           Text="Category" 
+                           FontSize="Caption" 
+                           HorizontalOptions="Center"
+                           TextColor="#d3d3d3" />
 
-                <Label x:Name="RandomRecipeTitle" 
-                       Text="Recipe Title" 
-                       FontSize="Title" 
-                       HorizontalOptions="Center" 
-                       FontAttributes="Bold"
-                       TextColor="White" />
+                    <Image x:Name="RandomRecipeImage" 
+                           HorizontalOptions="Center" 
+                           HeightRequest="200" 
+                           WidthRequest="200"
+                           Aspect="AspectFill"
+                           Margin="0,10,0,10"/>
 
-                <Label x:Name="RandomRecipeCategory" 
-                       Text="Category" 
-                       FontSize="Caption" 
-                       HorizontalOptions="Center"
-                       TextColor="#d3d3d3" />
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                        <Button Text="Details" 
+                                Clicked="OnDetailsClicked"
+                                TextColor="White" 
+                                BackgroundColor="#4169E1"
+                                CornerRadius="20"
+                                WidthRequest="120"
+                                FontAttributes="Bold" />
 
-           
-                <Image x:Name="RandomRecipeImage" 
-                       HorizontalOptions="Center" 
-                       HeightRequest="200" 
-                       WidthRequest="200"
-                       Aspect="AspectFill"
-                       Margin="0,10,0,10"/>
+                        <Button x:Name="FavoriteButton"
+                                Text="Add to Favorites"
+                                Clicked="ToggleFavoriteStatus"
+                                TextColor="White" 
+                                BackgroundColor="#FFA313A3"
+                                CornerRadius="20"
+                                WidthRequest="150"
+                                FontAttributes="Bold" />
 
-                
-                <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
-                    <Button Text="Details" 
-                            Clicked="OnDetailsClicked"
-                            TextColor="White" 
-                            BackgroundColor="#4169E1"
-                            CornerRadius="20"
-                            WidthRequest="120"
-                            FontAttributes="Bold" />
+                        <Button Text="Refresh" 
+                                Clicked="OnRefreshClicked"
+                                TextColor="White" 
+                                BackgroundColor="green"
+                                CornerRadius="20"
+                                WidthRequest="120"
+                                FontAttributes="Bold" />
+                    </HorizontalStackLayout>
+                </StackLayout>
+            </Frame>
 
-                    <Button x:Name="FavoriteButton"
-                            Text="Add to Favorites"
-                            Clicked="ToggleFavoriteStatus"
-                            TextColor="White" 
-                            BackgroundColor="#FFA313A3"
-                            CornerRadius="20"
-                            WidthRequest="150"
-                            FontAttributes="Bold" />
+            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" Padding="0,5,0,0" RowSpacing="10" ColumnSpacing="10" HorizontalOptions="Center">
+                <Button Text="View All Recipes"
+                        Padding="200, 15, 200, 15"
+                        BackgroundColor="#4169E1"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        CornerRadius="10"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Clicked="OnShowRecipesClicked" />
 
-                    <Button Text="Refresh" 
-                            Clicked="OnRefreshClicked"
-                            TextColor="White" 
-                            BackgroundColor="green"
-                            CornerRadius="20"
-                            WidthRequest="120"
-                            FontAttributes="Bold" />
+                <Button Text="View Favorites"
+                        Padding="200, 15, 200, 15"
+                        BackgroundColor="#FFA313A3"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        CornerRadius="10"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Clicked="OnShowFavoriteClicked"/>
 
-                   
-                    
-                </HorizontalStackLayout>
-            </StackLayout>
-        </Frame>
+                <Button Text="View Statistics"
+                        Padding="200, 15, 200, 15"
+                        BackgroundColor="tomato"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        CornerRadius="10"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Clicked="OnStatisticsPageClicked"/>
 
-       
-        <Button Text="View All Recipes"
-                BackgroundColor="#4169E1"
-                TextColor="White"
-                FontAttributes="Bold"
-                CornerRadius="10"
-                HorizontalOptions="Fill"
-                VerticalOptions="Start"
-                Clicked="OnShowRecipesClicked" />
-
-        <Button Text="View Favorites"
-                BackgroundColor="#FFA313A3"
-                TextColor="White"
-                FontAttributes="Bold"
-                CornerRadius="10"
-                HorizontalOptions="Fill"
-                VerticalOptions="Start"
-                Clicked="OnShowFavoriteClicked"/>
-
-        <Button Text="View Statistics"
-                BackgroundColor="tomato"
-                TextColor="White"
-                FontAttributes="Bold"
-                CornerRadius="10"
-                HorizontalOptions="Fill"
-                VerticalOptions="Start"
-                Clicked="OnStatisticsPageClicked"/>
-
-    </StackLayout>
+                <Button Text="View Credits"
+                        Padding="200, 15, 200, 15"
+                        BackgroundColor="#FFD700"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        CornerRadius="10"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Clicked="OnShowCreditsPageClicked" />
+            </Grid>
+        </StackLayout>
 </ContentPage>

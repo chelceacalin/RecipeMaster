@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RecipeMaster.CreditsPage"
+             Title="Credits"
+             BackgroundColor="#1e1e1e">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Back" Clicked="OnBackClicked" Priority="0" Order="Primary" />
+        <ToolbarItem Text="Main Page" Clicked="OnMainPageClicked" Priority="1" Order="Primary" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <StackLayout Padding="5" Spacing="5">
+
+            <Label Text="SIMPRE"
+                   FontSize="Small"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="royalblue"
+                   Margin="0,5,0,5" />
+            <Label Text="Academia de Studii Economice din Bucuresti"
+                   FontSize="Small"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="royalblue"
+                   Margin="0,5,0,5" />
+            <Label Text="Programarea dispozitivelor mobile"
+                   FontSize="Large"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="#FFEE7411"
+                   Margin="0,5,0,5" />
+            <Label Text="RecipeMaster - Aplicatie de gestiune retete culinare"
+                   FontSize="Large"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="#FFD700"
+                   Margin="0,5,0,5" />
+
+            <StackLayout Spacing="20" Padding="500, 20, 500, 0">
+                <Label Text="Profesor" FontSize="Medium" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" />
+                <Frame BackgroundColor="#333333" Padding="10" CornerRadius="8">
+                    <Label Text="Paul Pocatilu" FontSize="Small" TextColor="#d3d3d3" />
+                </Frame>
+            </StackLayout>
+
+            <StackLayout Spacing="20" Padding="500, 20, 500, 0">
+                <Label Text="Studenti" FontSize="Medium" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center"/>
+                <Frame BackgroundColor="#333333" Padding="10" CornerRadius="8">
+                    <Label Text="Chelcea Calin Marius" FontSize="Small" TextColor="#d3d3d3" />
+                </Frame>
+                <Frame BackgroundColor="#333333" Padding="10" CornerRadius="8">
+                    <Label Text="Costan Sergiu Andrei" FontSize="Small" TextColor="#d3d3d3" />
+                </Frame>
+                <Frame BackgroundColor="#333333" Padding="10" CornerRadius="8">
+                    <Label Text="Neagu Iuliana Alexandra" FontSize="Small" TextColor="#d3d3d3" />
+                </Frame>
+            </StackLayout>
+
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="10" Padding="0, 10, 0, 0">
+              
+                <Button Text="Download DOCX"
+                        BackgroundColor="#4169E1"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        CornerRadius="8"
+                        WidthRequest="150"
+                        Clicked="OnDownloadDocxClicked" />
+
+                <Button Text="Download PDF"
+                        BackgroundColor="tomato"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        CornerRadius="8"
+                        WidthRequest="150"
+                        Clicked="OnDownloadPdfClicked" />
+            </HorizontalStackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

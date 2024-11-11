@@ -40,6 +40,11 @@ public partial class RecipesPage : ContentPage
         await Navigation.PushAsync(new StatisticsPage());
     }
 
+    private async void OnShowCreditsPageClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new CreditsPage());
+        }
+
     private async Task<ImageSource> GetImageFromUrl(string imageUrl)
     {
         try

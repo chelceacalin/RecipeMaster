@@ -73,6 +73,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+    <EmbeddedResource Include="Resources/Docs/Proiect-PDM-RECIPEMASTER.docx" />
+    <EmbeddedResource Include="Resources/Docs/Proiect-PDM-RECIPEMASTER.pdf" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="RecipeDetailsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
