@@ -5,31 +5,36 @@
              Title="Edit Recipe"
              BackgroundColor="#1c1c1c">
 
-  
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Go to Main Page" Clicked="OnGoToMainPageClicked" Priority="0" Order="Primary" />
     </ContentPage.ToolbarItems>
 
-    <StackLayout Padding="10" Spacing="15">
-        <Label Text="Edit Recipe" FontSize="Large" HorizontalOptions="Center" TextColor="White" />
+    <ScrollView BackgroundColor="#1c1c1c">
+        <StackLayout Padding="10" Spacing="15">
+            <Label Text="Edit Recipe" FontSize="Large" HorizontalOptions="Center" TextColor="White" />
 
-        <Label Text="Image" FontSize="Medium" TextColor="White" />
-        <Image x:Name="RecipeImage" HeightRequest="150" WidthRequest="150" Aspect="AspectFill" HorizontalOptions="Center" />
+            <Label Text="Image" FontSize="Medium" TextColor="White" />
+            <Image x:Name="RecipeImage" HeightRequest="150" WidthRequest="150" Aspect="AspectFill" HorizontalOptions="Center" />
 
-        <Label Text="Title" FontSize="Medium" TextColor="White" />
-        <Entry x:Name="TitleEntry" Text="{Binding Title}" TextColor="White" />
+            <Label Text="Title" FontSize="Medium" TextColor="White" />
+            <Frame BackgroundColor="White" CornerRadius="8" Padding="0">
+                <Entry x:Name="TitleEntry" Text="{Binding Title}" TextColor="Black" BackgroundColor="White" />
+            </Frame>
 
-        <Label Text="Category" FontSize="Medium" TextColor="White" />
-        <Entry x:Name="CategoryEntry" Text="{Binding Category}" TextColor="White" />
+            <Label Text="Category" FontSize="Medium" TextColor="White" />
+            <Frame BackgroundColor="White" CornerRadius="8" Padding="0">
+                <Entry x:Name="CategoryEntry" Text="{Binding Category}" TextColor="Black" BackgroundColor="White" />
+            </Frame>
 
-       
-        <Label Text="Image URL" FontSize="Medium" TextColor="White" />
-        <Entry x:Name="ImageUrlEntry" Text="{Binding MealThumb}" TextColor="White" />
+            <Label Text="Image URL" FontSize="Medium" TextColor="White" />
+            <Frame BackgroundColor="White" CornerRadius="8" Padding="0">
+                <Entry x:Name="ImageUrlEntry" Text="{Binding MealThumb}" TextColor="Black" BackgroundColor="White" />
+            </Frame>
 
-       
-        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20">
-            <Button Text="Save" BackgroundColor="#4CAF50" TextColor="White" Clicked="OnSaveClicked" />
-            <Button Text="Cancel" BackgroundColor="#FF5722" TextColor="White" Clicked="OnBackClicked" />
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20">
+                <Button Text="Save" BackgroundColor="#4CAF50" TextColor="White" Clicked="OnSaveClicked" />
+                <Button Text="Cancel" BackgroundColor="#FF5722" TextColor="White" Clicked="OnBackClicked" />
+            </StackLayout>
         </StackLayout>
-    </StackLayout>
+    </ScrollView>
 </ContentPage>

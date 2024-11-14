@@ -17,14 +17,16 @@ public partial class RecipesListPage : ContentPage
 
         foreach (var recipe in recipes)
         {
-            
             recipe.IsFavorite = DatabaseManager.Instance.GetAllRecords<Favorite>().Any(f => f.RecipeId == recipe.Id);
-        }
 
+            if (!Uri.IsWellFormedUriString(recipe.MealThumb, UriKind.Absolute))
+            {
+                recipe.MealThumb = "default_image_path";
+            }
+        }
         RecipesListView.ItemsSource = recipes;
     }
-
-
+  
     private async void OnBackClicked(object sender, EventArgs e)
     {
         await Navigation.PopAsync();
@@ -88,7 +90,6 @@ public partial class RecipesListPage : ContentPage
                 Debug.WriteLine($"Added recipe ID {recipe.Id} to favorites.");
             }
 
-            
             recipe.IsFavorite = !isFavorite;
         }
     }

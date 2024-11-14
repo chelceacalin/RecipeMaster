@@ -70,7 +70,7 @@ public partial class RecipesPage : ContentPage
     {
         try
         {
-            string randomRecipeLink = "http://www.themealdb.com/api/json/v1/1/random.php";
+            string randomRecipeLink = "https://www.themealdb.com/api/json/v1/1/random.php";
             var response = await _httpClient.GetFromJsonAsync<MealResponse>(randomRecipeLink);
 
             if (response != null && response.meals != null && response.meals.Count > 0)

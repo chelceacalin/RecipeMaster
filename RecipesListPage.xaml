@@ -5,7 +5,6 @@
              Title="Saved Recipes"
              BackgroundColor="#2c2c2c">
 
-
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Back" Clicked="OnBackClicked" Priority="0" Order="Primary" />
         <ToolbarItem Text="Favorite Recipes" Clicked="OnShowFavoriteClicked" Priority="1" Order="Primary" />
@@ -17,37 +16,31 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Frame Padding="10" CornerRadius="10" HasShadow="True" Margin="10"
-                            BackgroundColor="#333333">
+                        <Frame Padding="10" CornerRadius="10" HasShadow="True" Margin="10" BackgroundColor="#333333">
                             <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="10">
 
-                          
                                 <Image HeightRequest="60"
-                                    WidthRequest="60"
-                                    Aspect="AspectFill"
-                                    Grid.RowSpan="2"
-                                    VerticalOptions="Center">
+                                       WidthRequest="60"
+                                       Aspect="AspectFill"
+                                       Grid.RowSpan="2"
+                                       VerticalOptions="Center">
                                     <Image.Source>
                                         <UriImageSource Uri="{Binding MealThumb}" CachingEnabled="True" CacheValidity="1.00:00:00"/>
                                     </Image.Source>
                                 </Image>
 
-                               
                                 <StackLayout Grid.Column="1" VerticalOptions="Center">
                                     <Label Text="{Binding Title}"
-                                        FontSize="Medium"
-                                        FontAttributes="Bold"
-                                        TextColor="White" />
+                                           FontSize="Medium"
+                                           FontAttributes="Bold"
+                                           TextColor="White" />
                                     <Label Text="{Binding Category}"
-                                        FontSize="Small"
-                                        FontAttributes="Italic"
-                                        TextColor="#cccccc" />
+                                           FontSize="Small"
+                                           FontAttributes="Italic"
+                                           TextColor="#cccccc" />
                                 </StackLayout>
 
-                              
                                 <StackLayout Orientation="Horizontal" Grid.Column="2" Grid.RowSpan="2" VerticalOptions="Center" Spacing="5">
-
-                                
                                     <Button Text="{Binding IsFavorite, Converter={StaticResource FavoriteConverter}}"
                                             BackgroundColor="#FFA313A3"
                                             TextColor="White"
@@ -56,8 +49,6 @@
                                             HeightRequest="35"
                                             Clicked="OnToggleFavoriteClicked"
                                             CommandParameter="{Binding .}" />
-
-
                                     <Button Text="Edit"
                                             BackgroundColor="#4CAF50"
                                             TextColor="White"
@@ -66,7 +57,6 @@
                                             HeightRequest="35"
                                             Clicked="OnEditClicked"
                                             CommandParameter="{Binding .}" />
-
                                     <Button Text="Delete"
                                             BackgroundColor="#F44336"
                                             TextColor="White"

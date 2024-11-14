@@ -26,8 +26,10 @@
                      Order="Secondary"
                      Clicked="OnShowCreditsPageClicked" />
     </ContentPage.ToolbarItems>
+
+    <!-- Add a ScrollView to enable vertical scrolling -->
+    <ScrollView>
         <StackLayout Padding="15" Spacing="15">
-  
             <Frame BackgroundColor="#333333" CornerRadius="15" Padding="20" HasShadow="True" Margin="0,10,0,20">
                 <StackLayout Spacing="10">
                     <Label Text="Random Recipe of the Day" 
@@ -56,75 +58,86 @@
                            Aspect="AspectFill"
                            Margin="0,10,0,10"/>
 
-                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                    <!-- Use a Grid to layout the buttons with margin between them -->
+                    <Grid ColumnDefinitions="*,*,*"
+                          HorizontalOptions="Center" 
+                          Margin="0,10,0,0">
                         <Button Text="Details" 
                                 Clicked="OnDetailsClicked"
                                 TextColor="White" 
                                 BackgroundColor="#4169E1"
                                 CornerRadius="20"
-                                WidthRequest="120"
-                                FontAttributes="Bold" />
+                                FontAttributes="Bold"
+                                Margin="5"
+                                Grid.Column="0" />
 
                         <Button x:Name="FavoriteButton"
                                 Text="Add to Favorites"
                                 Clicked="ToggleFavoriteStatus"
                                 TextColor="White" 
-                                BackgroundColor="#FFA313A3"
+                                BackgroundColor="#A020F0"
                                 CornerRadius="20"
-                                WidthRequest="150"
-                                FontAttributes="Bold" />
+                                FontAttributes="Bold"
+                                Margin="5"
+                                Grid.Column="1" />
 
                         <Button Text="Refresh" 
                                 Clicked="OnRefreshClicked"
                                 TextColor="White" 
-                                BackgroundColor="green"
+                                BackgroundColor="ForestGreen"
                                 CornerRadius="20"
-                                WidthRequest="120"
-                                FontAttributes="Bold" />
-                    </HorizontalStackLayout>
+                                FontAttributes="Bold"
+                                Margin="5"
+                                Grid.Column="2" />
+                    </Grid>
                 </StackLayout>
             </Frame>
 
             <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" Padding="0,5,0,0" RowSpacing="10" ColumnSpacing="10" HorizontalOptions="Center">
                 <Button Text="View All Recipes"
-                        Padding="200, 15, 200, 15"
+                        Padding="15"
                         BackgroundColor="#4169E1"
                         TextColor="White"
                         FontAttributes="Bold"
                         CornerRadius="10"
                         Grid.Row="0"
                         Grid.Column="0"
+                        WidthRequest="150"
                         Clicked="OnShowRecipesClicked" />
 
                 <Button Text="View Favorites"
-                        Padding="200, 15, 200, 15"
-                        BackgroundColor="#FFA313A3"
+                        Padding="15"
+                        BackgroundColor="#8A2BE2"
                         TextColor="White"
                         FontAttributes="Bold"
                         CornerRadius="10"
                         Grid.Row="0"
                         Grid.Column="1"
+                        WidthRequest="150"
                         Clicked="OnShowFavoriteClicked"/>
 
                 <Button Text="View Statistics"
-                        Padding="200, 15, 200, 15"
-                        BackgroundColor="tomato"
+                        Padding="15"
+                        BackgroundColor="Tomato"
                         TextColor="White"
                         FontAttributes="Bold"
                         CornerRadius="10"
                         Grid.Row="1"
                         Grid.Column="0"
+                        WidthRequest="150"
                         Clicked="OnStatisticsPageClicked"/>
 
                 <Button Text="View Credits"
-                        Padding="200, 15, 200, 15"
+                        Padding="15"
                         BackgroundColor="#FFD700"
                         TextColor="Black"
                         FontAttributes="Bold"
                         CornerRadius="10"
                         Grid.Row="1"
                         Grid.Column="1"
+                        WidthRequest="150"
                         Clicked="OnShowCreditsPageClicked" />
             </Grid>
         </StackLayout>
+    </ScrollView>
 </ContentPage>

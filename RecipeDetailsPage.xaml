@@ -80,17 +80,6 @@
                     FontAttributes="Bold"
                     CornerRadius="20"
                     HeightRequest="45" />
-
-            <!-- Buton pentru Favorite -->
-            <Button x:Name="FavoriteButton"
-                    Text="Add to Favorites"
-                    BackgroundColor="#FFA313A3" 
-                    TextColor="White" 
-                    Clicked="OnAddToFavoriteClicked"
-                    HorizontalOptions="FillAndExpand" 
-                    FontAttributes="Bold"
-                    CornerRadius="20"
-                    HeightRequest="45" />
         </StackLayout>
     </ScrollView>
 </ContentPage>

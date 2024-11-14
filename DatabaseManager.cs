@@ -53,21 +53,6 @@ namespace RecipeMaster
 
         }
 
-        public List<T> GetAllRecords<T>() where T : new()
-        {
-            try
-            {
-                var records = _connection.Table<T>().ToList();
-                Debug.WriteLine($"Successfully retrieved {records.Count} records from {typeof(T).Name}.");
-                return records;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Error retrieving records from {typeof(T).Name}: {ex.Message}");
-                return new List<T>();
-            }
-        }
-
         public T GetRecordById<T>(int id) where T : new()
         {
             try
@@ -88,6 +73,18 @@ namespace RecipeMaster
         {
             try
             {
+                if (record is Recipe recipe)
+                {
+                    recipe.MealThumb = CleanUriPrefix(recipe.MealThumb);
+
+                    var existingRecipe = _connection.Table<Recipe>().FirstOrDefault(r => r.Title == recipe.Title && r.MealThumb == recipe.MealThumb);
+                    if (existingRecipe != null)
+                    {
+                        Debug.WriteLine($"Recipe with title '{recipe.Title}' already exists. Skipping insert.");
+                        return;
+                    }
+                }
+
                 _connection.Insert(record);
                 Debug.WriteLine($"Successfully inserted record into {typeof(T).Name}.");
             }
@@ -95,6 +92,35 @@ namespace RecipeMaster
             {
                 Debug.WriteLine($"Error inserting record into {typeof(T).Name}: {ex.Message}");
             }
+        }
+
+        public List<T> GetAllRecords<T>() where T : new()
+        {
+            try
+            {
+                var records = _connection.Table<T>().ToList();
+
+                if (typeof(T) == typeof(Recipe))
+                {
+                    foreach (var recipe in records.Cast<Recipe>())
+                    {
+                        recipe.MealThumb = CleanUriPrefix(recipe.MealThumb);
+                    }
+                }
+
+                Debug.WriteLine($"Successfully retrieved {records.Count} records from {typeof(T).Name}.");
+                return records;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error retrieving records from {typeof(T).Name}: {ex.Message}");
+                return new List<T>();
+            }
+        }
+
+        private string CleanUriPrefix(string uri)
+        {
+            return string.IsNullOrEmpty(uri) ? uri : uri.Replace("Uri: ", "");
         }
 
         public void UpdateRecord<T>(T record)
@@ -161,25 +187,39 @@ namespace RecipeMaster
             }
         }
 
-        public void RemoveFromFavorites(int recipeId)
+        public bool RemoveFromFavorites(int recipeId)
         {
             try
             {
-                // Găsește intrarea în tabela Favorite după ID-ul rețetei și o șterge
+                if (_connection == null)
+                {
+                    Debug.WriteLine("Database connection is null. Cannot remove favorite.");
+                    return false;
+                }
+
                 var favorite = _connection.Table<Favorite>().FirstOrDefault(f => f.RecipeId == recipeId);
+
                 if (favorite != null)
                 {
                     _connection.Delete(favorite);
                     Debug.WriteLine($"Successfully removed recipe ID {recipeId} from favorites.");
+                    return true;
                 }
                 else
                 {
                     Debug.WriteLine($"Recipe ID {recipeId} is not in favorites.");
+                    return false;
                 }
+            }
+            catch (SQLiteException sqlEx)
+            {
+                Debug.WriteLine($"SQLite error while removing recipe ID {recipeId} from favorites: {sqlEx.Message}");
+                return false;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error removing recipe ID {recipeId} from favorites: {ex.Message}");
+                Debug.WriteLine($"Unexpected error while removing recipe ID {recipeId} from favorites: {ex.Message}");
+                return false;
             }
         }
 

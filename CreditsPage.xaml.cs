@@ -12,6 +12,9 @@ namespace RecipeMaster
         public CreditsPage()
         {
             InitializeComponent();
+        #if ANDROID
+            DownloadDocxButton.IsVisible = false;
+        #endif
         }
 
         // Eveniment pentru butonul de Back

@@ -12,7 +12,6 @@ public partial class RecipeDetailsPage : ContentPage
         InitializeComponent();
         _currentRecipe = recipe;
 
-      
         RecipeTitle.Text = recipe.Title ?? "No title available";
         RecipeCategory.Text = recipe.Category ?? "No category";
         RecipeArea.Text = recipe.Area ?? "No area";
@@ -20,60 +19,25 @@ public partial class RecipeDetailsPage : ContentPage
         RecipeTags.Text = !string.IsNullOrEmpty(recipe.Tags) ? recipe.Tags : "No tags available";
         RecipeSource.Text = !string.IsNullOrEmpty(recipe.Source) ? recipe.Source : "No source available";
         RecipeYoutubeLink.Text = !string.IsNullOrEmpty(recipe.YoutubeLink) ? recipe.YoutubeLink : "No YouTube link available";
-        
+
         if (!string.IsNullOrEmpty(recipe.MealThumb))
         {
             RecipeImage.Source = recipe.MealThumb;
         }
         else
         {
-            RecipeImage.IsVisible = false; 
+            RecipeImage.IsVisible = false;
         }
-
-       
-        bool isFavorite = DatabaseManager.Instance.GetFavoriteRecipes().Any(f => f.Id == _currentRecipe.Id);
-        UpdateFavoriteButtonText(isFavorite);
 
         Debug.WriteLine($"Recipe details:\n" +
-                  $"Title: {recipe.Title}\n" +
-                  $"Category: {recipe.Category}\n" +
-                  $"Area: {recipe.Area}\n" +
-                  $"Tags: {recipe.Tags}\n" +
-                  $"Source: {recipe.Source}\n" +
-                  $"YouTube: {recipe.YoutubeLink}");
+                        $"Title: {recipe.Title}\n" +
+                        $"Category: {recipe.Category}\n" +
+                        $"Area: {recipe.Area}\n" +
+                        $"Tags: {recipe.Tags}\n" +
+                        $"Source: {recipe.Source}\n" +
+                        $"YouTube: {recipe.YoutubeLink}");
     }
 
-   
-    private void OnAddToFavoriteClicked(object sender, EventArgs e)
-    {
-        if (_currentRecipe != null)
-        {
-          
-            bool isFavorite = DatabaseManager.Instance.GetFavoriteRecipes().Any(f => f.Id == _currentRecipe.Id);
-
-            if (isFavorite)
-            {
-                
-                DatabaseManager.Instance.RemoveFromFavorites(_currentRecipe.Id);
-            }
-            else
-            {
-                
-                DatabaseManager.Instance.AddToFavorites(_currentRecipe.Id);
-            }
-
-          
-            UpdateFavoriteButtonText(!isFavorite);
-        }
-    }
-
- 
-    private void UpdateFavoriteButtonText(bool isFavorite)
-    {
-        FavoriteButton.Text = isFavorite ? "Remove from Favorites" : "Add to Favorites";
-    }
-
- 
     private async void OnSaveClicked(object sender, EventArgs e)
     {
         var recipe = new Recipe
@@ -91,16 +55,16 @@ public partial class RecipeDetailsPage : ContentPage
         try
         {
             DatabaseManager.Instance.InsertRecord(recipe);
-            DisplayAlert("Success", "The recipe has been saved successfully!", "OK");
+            await DisplayAlert("Success", "The recipe has been saved successfully!", "OK");
             await Navigation.PopToRootAsync();
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error saving recipe: {ex.Message}");
-            DisplayAlert("Error", "Failed to save recipe.", "OK");
+            Debug.WriteLine($"Error saving recipe: {ex.Message}");
+            await DisplayAlert("Error", "Failed to save recipe.", "OK");
         }
     }
-    
+
     private async void OnBackClicked(object sender, EventArgs e)
     {
         try
@@ -110,13 +74,13 @@ public partial class RecipeDetailsPage : ContentPage
                 await Navigation.PopAsync();
             }
             else
-            {   
-                Console.WriteLine("No pages to pop in navigation stack.");
+            {
+                Debug.WriteLine("No pages to pop in navigation stack.");
             }
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error navigating back: {ex.Message}");
+            Debug.WriteLine($"Error navigating back: {ex.Message}");
         }
     }
 
@@ -124,7 +88,7 @@ public partial class RecipeDetailsPage : ContentPage
     {
         await Navigation.PushAsync(new RecipesListPage());
     }
-    
+
     private async void OnSourceTapped(object sender, EventArgs e)
     {
         if (!string.IsNullOrEmpty(RecipeSource.Text) && RecipeSource.Text != "No source available")
@@ -148,7 +112,7 @@ public partial class RecipeDetailsPage : ContentPage
             try
             {
                 Uri uri = new Uri(RecipeYoutubeLink.Text);
-                await Launcher.OpenAsync(uri); 
+                await Launcher.OpenAsync(uri);
             }
             catch (Exception ex)
             {
