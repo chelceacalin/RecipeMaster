@@ -21,31 +21,6 @@ public partial class FavoriteListPage : ContentPage
             {
                 Debug.WriteLine($"Loaded {favoriteRecipes.Count} favorite recipes into the view.");
                 RecipesListView.ItemsSource = favoriteRecipes;
-                var recipes = DatabaseManager.Instance.GetAllRecords<Recipe>();
-
-                // Check if records are found and print details
-                if (recipes != null && recipes.Count > 0)
-                {
-                    Debug.WriteLine("All Recipes:");
-                    foreach (var recipe in recipes)
-                    {
-                        Debug.WriteLine($"ID: {recipe.Id}");
-                        Debug.WriteLine($"Title: {recipe.Title}");
-                        Debug.WriteLine($"Category: {recipe.Category}");
-                        Debug.WriteLine($"Description: {recipe.Description}");
-                        Debug.WriteLine($"Area: {recipe.Area}");
-                        Debug.WriteLine($"MealThumb: {recipe.MealThumb}");
-                        Debug.WriteLine($"Tags: {recipe.Tags}");
-                        Debug.WriteLine($"Source: {recipe.Source}");
-                        Debug.WriteLine($"YoutubeLink: {recipe.YoutubeLink}");
-                        Debug.WriteLine($"IsFavorite: {recipe.IsFavorite}");
-                        Debug.WriteLine("-----"); // Separator between recipes
-                    }
-                }
-                else
-                {
-                    Debug.WriteLine("No recipes found in the database.");
-                }
             }
             else
             {

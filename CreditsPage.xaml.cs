@@ -17,13 +17,11 @@ namespace RecipeMaster
         #endif
         }
 
-        // Eveniment pentru butonul de Back
         private async void OnBackClicked(object sender, EventArgs e)
         {
             await Navigation.PopAsync();
         }
 
-        // Eveniment pentru butonul de Main Page
         private async void OnMainPageClicked(object sender, EventArgs e)
         {
             await Navigation.PopToRootAsync();

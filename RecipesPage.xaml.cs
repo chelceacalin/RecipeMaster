@@ -9,8 +9,7 @@ public partial class RecipesPage : ContentPage
 {
     HttpClient _httpClient = new HttpClient();
     private Recipe _randomRecipe = new Recipe();
-    private DatabaseManager dbManager = DatabaseManager.Instance; // Instanța DatabaseManager
-
+    private DatabaseManager dbManager = DatabaseManager.Instance; 
     public RecipesPage()
     {
         InitializeComponent();

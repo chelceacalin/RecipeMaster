@@ -35,8 +35,8 @@ namespace RecipeMaster
             _connection = new SQLiteConnection(DbPath);
             Console.WriteLine($"Database path: {DbPath}");
 
-            CreateTable<Recipe>(); // Tabela pentru rețete
-            CreateTable<Favorite>(); // Tabela pentru favorite
+            CreateTable<Recipe>();
+            CreateTable<Favorite>(); 
         }
 
         public void CreateTable<T>() where T : new()

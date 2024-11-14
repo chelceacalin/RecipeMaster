@@ -10,7 +10,6 @@ namespace RecipeMaster
         {
             InitializeComponent();
 
-            // Set up a global unhandled exception handler
             AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
             {
                 HandleGlobalException(e.ExceptionObject as Exception);
@@ -18,8 +17,7 @@ namespace RecipeMaster
             TaskScheduler.UnobservedTaskException += (sender, e) =>
             {
                 HandleGlobalException(e.Exception);
-                e.SetObserved(); // Prevents the application from terminating due to unobserved task exceptions
-            };
+                e.SetObserved();
 
             try
             {
@@ -42,7 +40,6 @@ namespace RecipeMaster
             }
         }
 
-        // Method to handle global exceptions
         private void HandleGlobalException(Exception ex)
         {
             Debug.WriteLine($"Unhandled exception: {ex?.Message}");
@@ -53,10 +50,8 @@ namespace RecipeMaster
         {
             Application.Current?.Dispatcher.Dispatch(async () =>
             {
-                // Display error message to the user
                 await MainPage?.DisplayAlert("Error", "An error occurred during initialization. Redirecting to the main page.", "OK");
 
-                // Navigate back to the main page to avoid app termination
                 MainPage = new NavigationPage(new RecipesPage());
             });
         }
